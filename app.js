@@ -84,6 +84,7 @@
   const routeCache = new Map();
   let routeAbort = null;
   let routeSerial = 0;
+  let lastRoutingRequestAt = 0;
 
   const $ = function (selector) { return document.querySelector(selector); };
   const $$ = function (selector) { return Array.from(document.querySelectorAll(selector)); };
@@ -172,7 +173,7 @@
       mapLayerControl = L.control.layers(
         { 'Plan clair (Esri)': topo, 'Pistes vélo (CyclOSM)': cycling, 'OpenStreetMap': osm },
         null,
-        { position: 'topleft', collapsed: false }
+        { position: 'topleft', collapsed: window.matchMedia('(max-width: 580px)').matches }
       ).addTo(map);
       map.on('baselayerchange', function (event) { activeBase = event.layer; });
       map.setView([43.681, 7.226], 12);
@@ -320,6 +321,12 @@
     const url = ROUTING_URL + coords + '?overview=full&geometries=geojson&steps=false';
 
     try {
+      // FOSSGIS public demo: au plus une requête toutes les 1,2 secondes.
+      // Une sélection annulée ne provoque aucune requête supplémentaire.
+      const waitMs = Math.max(0, lastRoutingRequestAt + 1200 - Date.now());
+      if (waitMs > 0) await new Promise(function (resolve) { window.setTimeout(resolve, waitMs); });
+      if (signal.aborted || serial !== routeSerial) return;
+      lastRoutingRequestAt = Date.now();
       const response = await fetch(url, { signal: signal, headers: { Accept: 'application/json' } });
       if (!response.ok) throw new Error('Service itinéraire indisponible (' + response.status + ')');
       const json = await response.json();
