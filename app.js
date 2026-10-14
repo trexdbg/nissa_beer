@@ -14,7 +14,7 @@
     prom: {
       id: 'prom',
       title: "La Prom' Signature",
-      distance: '≈ 2,4 km',
+      distance: '≈ 2,0 km',
       duration: '45–60 min',
       description: "Palmiers, grands hôtels et bord de mer : l'essentiel de la Promenade des Anglais.",
       color: '#ee7053',
@@ -39,7 +39,7 @@
     sunset: {
       id: 'sunset',
       title: 'Sunset sur la Baie',
-      distance: '≈ 2,6 km',
+      distance: '≈ 1,9 km',
       duration: '50–70 min',
       description: "Vers l'ouest de la Baie des Anges : panorama ouvert et couchers de soleil.",
       color: '#299eae',
@@ -64,7 +64,7 @@
     'vieux-nice': {
       id: 'vieux-nice',
       title: 'Nice Carte Postale',
-      distance: '≈ 1,5 km',
+      distance: '≈ 1,1 km',
       duration: '40–60 min',
       description: "Du jardin Albert 1er au quai des États-Unis, jusqu'au point de vue de Rauba Capèu.",
       color: '#d39d1f',
@@ -373,7 +373,7 @@
     setupRequestForm();
 
     const routeInUrl = new URLSearchParams(window.location.search).get('parcours');
-    selectRoute(ROUTES[routeInUrl] ? routeInUrl : 'prom', false);
+    selectRoute(Object.prototype.hasOwnProperty.call(ROUTES, routeInUrl) ? routeInUrl : 'prom', false);
 
     // Leaflet needs to re-measure after its container changes width.
     window.addEventListener('resize', function () {
