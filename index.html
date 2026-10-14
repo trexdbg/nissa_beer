@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102f3d">
+  <meta name="description" content="Nissa Beer : imaginez un apéro à vélo collectif face à la Méditerranée. Découvrez 3 itinéraires niçois sur une carte interactive et préparez votre sortie.">
+  <meta property="og:title" content="Nissa Beer — La Prom' en mode apéro">
+  <meta property="og:description" content="Pédaler ensemble, découvrir Nice et partager un apéro autrement.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <title>Nissa Beer — La Prom' en mode apéro</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <header class="site-header" id="accueil">
+    <div class="container header-inner">
+      <a class="brand" href="#accueil" aria-label="Nissa Beer, revenir à l'accueil">
+        <span class="brand-symbol" aria-hidden="true">N<span>✳</span></span>
+        <span class="brand-words"><strong>NISSA<span>BEER</span></strong><small>NICE, CÔTE D'AZUR</small></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Navigation principale">
+        <a href="#concept">Le concept</a>
+        <a href="#parcours">Les parcours</a>
+        <a href="#carte">La carte</a>
+        <a href="#questions">FAQ</a>
+      </nav>
+      <a class="button button-dark header-cta" href="#reservation">Préparer ma sortie <span aria-hidden="true">↗</span></a>
+      <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Navigation mobile" hidden>
+      <a href="#concept">Le concept</a>
+      <a href="#parcours">Les parcours</a>
+      <a href="#carte">La carte</a>
+      <a href="#questions">FAQ</a>
+      <a href="#reservation">Préparer ma sortie ↗</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-blob hero-blob-one" aria-hidden="true"></div>
+      <div class="hero-blob hero-blob-two" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> LE CONCEPT QUI SENT BON LE SUD</div>
+          <h1 id="hero-title">NICE SE<br> DÉCOUVRE<br> <em>À PLUSIEURS.</em></h1>
+          <p class="hero-sub">Un vélo collectif, des copains, la Méditerranée en décor et l'esprit apéro. Bienvenue dans l'univers <strong>Nissa Beer</strong>.</p>
+          <div class="hero-actions">
+            <a href="#parcours" class="button button-coral">Découvrir les balades <span aria-hidden="true">↗</span></a>
+            <a href="#concept" class="text-link">Comment ça marche ? <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-proof">
+            <span class="proof-sun" aria-hidden="true">☀</span>
+            <span><strong>La Baie des Anges comme terrain de jeu</strong><br><small>De la Promenade des Anglais au Vieux-Nice</small></span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-photo" role="img" aria-label="Vue de la Promenade des Anglais, la baie et les plages de Nice"></div>
+          <div class="hero-photo-shade"></div>
+          <div class="hero-photo-label"><span class="label-line" aria-hidden="true"></span><span>43°42' N · 7°16' E<br><strong>NICE, BABY!</strong></span></div>
+          <div class="hero-stamp" aria-hidden="true"><span>100%</span><small>VIBES<br>NIÇOISES</small></div>
+          <div class="hero-photo-bottom"><span>LA PROMENADE DES ANGLAIS</span><span>↗</span></div>
+        </div>
+      </div>
+      <div class="container hero-bottom"><div>↓ <span>SCROLL POUR DÉCOUVRIR</span></div><div>SOLEIL · BALADE · CONVIVIALITÉ</div></div>
+    </section>
+
+    <div class="ticker" aria-label="Nissa Beer : balade, soleil, bière et découverte de Nice">
+      <div class="ticker-track" aria-hidden="true">
+        <span>PÉDALE ENSEMBLE <b>✳</b> NICE LA BELLE <b>✳</b> L'APÉRO AUTREMENT <b>✳</b> VUE MER GARANTIE <b>✳</b> PÉDALE ENSEMBLE <b>✳</b> NICE LA BELLE <b>✳</b> L'APÉRO AUTREMENT <b>✳</b> VUE MER GARANTIE <b>✳</b></span>
+      </div>
+    </div>
+
+    <section id="concept" class="section concept-section">
+      <div class="container">
+        <div class="section-heading concept-heading">
+          <div><span class="kicker">01 / LE CONCEPT</span><h2>UN VÉLO.<br>DES AMIS.<br><em>DES SOURIRES.</em></h2></div>
+          <p>Nissa Beer, c'est l'idée d'un <strong>vélo-bar collectif</strong> où l'on pédale côte à côte, on découvre les plus beaux coins de Nice et on partage une pause apéro dans la bonne humeur.</p>
+        </div>
+        <div class="concept-grid">
+          <div class="illustration-card">
+            <span class="illustration-top">NISSA BEER SOCIAL CLUB</span>
+            <svg class="bike-illustration" viewBox="0 0 680 390" role="img" aria-label="Illustration d'un vélo-bar collectif avec des pédales, une table et des verres">
+              <circle cx="163" cy="295" r="77" fill="#fdfaf1" stroke="#102f3d" stroke-width="14"/>
+              <circle cx="507" cy="295" r="77" fill="#fdfaf1" stroke="#102f3d" stroke-width="14"/>
+              <circle cx="163" cy="295" r="18" fill="#102f3d"/>
+              <circle cx="507" cy="295" r="18" fill="#102f3d"/>
+              <path d="M163 295 259 184 377 295 163 295 M259 184 507 295 377 295 430 185 507 295" fill="none" stroke="#102f3d" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="204" y="175" width="262" height="32" rx="16" fill="#102f3d"/>
+              <path d="M238 179V125M430 179V125" stroke="#102f3d" stroke-width="12" stroke-linecap="round"/>
+              <rect x="188" y="109" width="302" height="28" rx="14" fill="#f56e4f" stroke="#102f3d" stroke-width="6"/>
+              <rect x="289" y="47" width="93" height="63" rx="12" fill="#f9c75c" stroke="#102f3d" stroke-width="8"/>
+              <path d="M313 62h46M313 80h46" stroke="#fff2ce" stroke-width="7" stroke-linecap="round"/>
+              <path d="M335 47V23M335 23h41" stroke="#102f3d" stroke-width="9" stroke-linecap="round"/>
+              <path d="M376 23v22" stroke="#102f3d" stroke-width="8" stroke-linecap="round"/>
+              <path d="M393 100v-37h21v37" fill="#fcf8eb" stroke="#102f3d" stroke-width="6"/>
+              <path d="M402 62v-14h26v11" fill="none" stroke="#102f3d" stroke-width="6" stroke-linecap="round"/>
+              <path d="M393 76h21" stroke="#ffb84a" stroke-width="14"/>
+              <circle cx="233" cy="71" r="22" fill="#f7a67b"/>
+              <path d="M216 60q16-30 36-4" fill="#102f3d"/>
+              <path d="M224 92v17h50v-19" fill="#fcf8eb" stroke="#102f3d" stroke-width="7" stroke-linejoin="round"/>
+              <path d="m261 108 21 18M218 108l-20 18" stroke="#102f3d" stroke-width="7" stroke-linecap="round"/>
+              <circle cx="458" cy="71" r="22" fill="#b57557"/>
+              <path d="M440 60q16-29 35-3" fill="#102f3d"/>
+              <path d="M450 93v16h48v-19" fill="#66c7bd" stroke="#102f3d" stroke-width="7" stroke-linejoin="round"/>
+              <path d="m456 110-22 16M490 108l20 18" stroke="#102f3d" stroke-width="7" stroke-linecap="round"/>
+              <path d="M301 206v28m-36 0h72" stroke="#102f3d" stroke-width="9" stroke-linecap="round"/>
+              <path d="M325 232h19" stroke="#f56e4f" stroke-width="10" stroke-linecap="round"/>
+              <path d="M121 150c13-19 23-19 35 0M520 145c12-19 24-19 36 0" fill="none" stroke="#ffefb0" stroke-width="8" stroke-linecap="round"/>
+              <path d="M105 91l-10-20M137 76l3-22M558 62l18-18M576 91l25-2" stroke="#102f3d" stroke-width="6" stroke-linecap="round"/>
+              <text x="340" y="364" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="900" font-size="23" fill="#102f3d" letter-spacing="6">BIKE · BEER · NICE</text>
+            </svg>
+            <div class="illustration-bottom"><span>ENJOY THE RIDE!</span><span>☀ 06</span></div>
+          </div>
+          <div class="concept-steps">
+            <div class="concept-step"><span class="step-number">01</span><div><h3>Rassemble ta team</h3><p>Entre amis, collègues ou pour célébrer un moment spécial : ici, l'expérience se vit en groupe.</p></div><span class="step-symbol" aria-hidden="true">✳</span></div>
+            <div class="concept-step"><span class="step-number">02</span><div><h3>Profite de la balade</h3><p>Pédalez ensemble à bord d'un véhicule adapté et découvrez le front de mer niçois autrement.</p></div><span class="step-symbol" aria-hidden="true">↗</span></div>
+            <div class="concept-step"><span class="step-number">03</span><div><h3>Place à l'apéro</h3><p>Bières servies à l'arrêt, boissons sans alcool et convivialité : la fête se partage, la sécurité d'abord.</p></div><span class="step-symbol" aria-hidden="true">☼</span></div>
+            <p class="concept-note"><span aria-hidden="true">ⓘ</span> Concept en préparation : exploitation, autorisations de circulation et service de boissons à valider avant lancement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="parcours" class="section routes-section">
+      <div class="container">
+        <div class="section-heading routes-heading">
+          <div><span class="kicker">02 / EXPLORER NICE</span><h2>LA VILLE EST<br><em>À TOI.</em></h2></div>
+          <p>Trois idées de balades, trois ambiances. De l'iconique Promenade des Anglais aux points de vue du Vieux-Nice, choisis ton mood.</p>
+        </div>
+        <div class="routes-grid">
+          <article class="route-card route-card-peach" data-route-card="prom">
+            <div class="route-card-top"><span class="route-pill">LE CLASSIQUE</span><span class="route-number">/ 01</span></div>
+            <div class="route-symbol" aria-hidden="true">☀</div>
+            <h3>LA PROM'<br>SIGNATURE</h3>
+            <p>Le meilleur de la Promenade des Anglais, des palmiers au mythique Négresco.</p>
+            <div class="route-meta"><span>◷ 45–60 min</span><span>↗ ≈ 2,4 km</span></div>
+            <button class="route-action" type="button" data-show-route="prom" aria-label="Voir La Prom' Signature sur la carte">Voir sur la carte <span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="route-card route-card-blue" data-route-card="sunset">
+            <div class="route-card-top"><span class="route-pill">VUE MER</span><span class="route-number">/ 02</span></div>
+            <div class="route-symbol" aria-hidden="true">≈</div>
+            <h3>SUNSET<br>SUR LA BAIE</h3>
+            <p>Cap vers l'ouest, les plages et la lumière dorée de la Baie des Anges.</p>
+            <div class="route-meta"><span>◷ 50–70 min</span><span>↗ ≈ 2,6 km</span></div>
+            <button class="route-action" type="button" data-show-route="sunset" aria-label="Voir Sunset sur la Baie sur la carte">Voir sur la carte <span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="route-card route-card-yellow" data-route-card="vieux-nice">
+            <div class="route-card-top"><span class="route-pill">PATRIMOINE</span><span class="route-number">/ 03</span></div>
+            <div class="route-symbol" aria-hidden="true">✺</div>
+            <h3>NICE<br>CARTE POSTALE</h3>
+            <p>Du jardin Albert 1er au panorama de Rauba Capèu, avec le Vieux-Nice tout près.</p>
+            <div class="route-meta"><span>◷ 40–60 min</span><span>↗ ≈ 1,5 km</span></div>
+            <button class="route-action" type="button" data-show-route="vieux-nice" aria-label="Voir Nice Carte Postale sur la carte">Voir sur la carte <span aria-hidden="true">↗</span></button>
+          </article>
+        </div>
+        <p class="route-disclaimer">Durées et distances approximatives, pauses incluses. Itinéraires touristiques indicatifs, non homologués pour un vélo-bar collectif et susceptibles d'être adaptés.</p>
+      </div>
+    </section>
+
+    <section id="carte" class="section map-section">
+      <div class="container">
+        <div class="section-heading map-heading">
+          <div><span class="kicker">03 / LA CARTE INTERACTIVE</span><h2>CAP SUR<br><em>LA PROM'.</em></h2></div>
+          <p>Choisis un circuit pour visualiser son tracé, ses étapes et ses points d'intérêt sur la carte de Nice.</p>
+        </div>
+        <div class="map-shell">
+          <div class="map-sidebar">
+            <div class="map-sidebar-heading"><span class="small-uppercase">CHOISIS TON ITINÉRAIRE</span><span class="map-route-count">03 PARCOURS</span></div>
+            <div class="map-options" role="group" aria-label="Choisir un itinéraire">
+              <button type="button" class="map-option is-active" data-select-route="prom" aria-pressed="true"><span class="option-dot dot-peach"></span><span><strong>La Prom' Signature</strong><small>La Promenade iconique</small></span><span class="option-arrow">↗</span></button>
+              <button type="button" class="map-option" data-select-route="sunset" aria-pressed="false"><span class="option-dot dot-blue"></span><span><strong>Sunset sur la Baie</strong><small>La mer à perte de vue</small></span><span class="option-arrow">↗</span></button>
+              <button type="button" class="map-option" data-select-route="vieux-nice" aria-pressed="false"><span class="option-dot dot-yellow"></span><span><strong>Nice Carte Postale</strong><small>Patrimoine et panorama</small></span><span class="option-arrow">↗</span></button>
+            </div>
+            <div class="selected-route-details" aria-live="polite">
+              <div class="details-head"><span class="small-uppercase">TON PARCOURS</span><span id="selected-distance" class="distance-tag">≈ 2,4 KM</span></div>
+              <h3 id="selected-title">La Prom' Signature</h3>
+              <p id="selected-description">Une découverte du front de mer et de ses lieux emblématiques.</p>
+              <div id="selected-stops" class="selected-stops"></div>
+              <div class="map-actions"><button id="zoom-route" type="button" class="mini-action">⌖ Recentrer</button><button id="share-route" type="button" class="mini-action">↗ Partager</button></div>
+              <p id="share-status" class="share-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="map-canvas-wrap">
+            <div id="map" aria-label="Carte interactive des parcours Nissa Beer à Nice"></div>
+            <div id="map-fallback" class="map-fallback" hidden><span aria-hidden="true">⌖</span><strong>La carte n'a pas pu charger.</strong><p>Les étapes des parcours restent consultables à gauche. Une connexion internet est nécessaire pour la cartographie.</p></div>
+            <div class="map-overlay-label"><span class="map-live-dot"></span> NICE · FRANCE</div>
+          </div>
+        </div>
+        <p class="map-caption">Carte : © contributeurs OpenStreetMap, affichage Leaflet. Les lignes relient des points d'intérêt et <strong>ne remplacent pas un guidage cyclable</strong>. Vérifier sur place circulation, sens autorisés, zones piétonnes et accès du véhicule.</p>
+      </div>
+    </section>
+
+    <section class="quote-band" aria-label="Esprit Nissa Beer"><div class="container quote-inner"><span class="quote-star" aria-hidden="true">✳</span><p>LE BONHEUR A LE GOÛT<br><em>DES CHOSES SIMPLES.</em></p><span class="quote-smile" aria-hidden="true">☺</span></div></section>
+
+    <section id="reservation" class="section booking-section">
+      <div class="container booking-grid">
+        <div class="booking-copy"><span class="kicker">04 / ON ORGANISE ÇA ?</span><h2>ON SE FAIT<br><em>UNE PROM' ?</em></h2><p>Un anniversaire, un EVG/EVJF, un afterwork ou juste une bonne excuse pour réunir les copains ? Prépare les détails de ta sortie en deux minutes.</p><div class="booking-callout"><span class="callout-emoji" aria-hidden="true">✌</span><span><strong>Le soleil est offert.</strong><br>Pour le reste, on prépare ça ensemble !</span></div></div>
+        <div class="booking-form-card">
+          <div class="booking-form-top"><span>TA FUTURE SORTIE</span><span>✳ NISSA BEER</span></div>
+          <form id="request-form">
+            <div class="field-group"><label for="booking-route">Ton parcours préféré</label><select id="booking-route" name="parcours"><option value="La Prom' Signature">La Prom' Signature</option><option value="Sunset sur la Baie">Sunset sur la Baie</option><option value="Nice Carte Postale">Nice Carte Postale</option><option value="À définir ensemble">À définir ensemble</option></select></div>
+            <div class="form-row">
+              <div class="field-group"><label for="booking-date">Date souhaitée</label><input type="date" id="booking-date" name="date" required></div>
+              <div class="field-group"><label for="booking-guests">Participants</label><input type="number" id="booking-guests" name="participants" min="1" max="100" value="8" required></div>
+            </div>
+            <div class="form-row">
+              <div class="field-group"><label for="booking-name">Ton prénom</label><input type="text" id="booking-name" name="prenom" placeholder="Ex. Camille" maxlength="80" autocomplete="given-name" required></div>
+              <div class="field-group"><label for="booking-email">Ton e-mail</label><input type="email" id="booking-email" name="email" placeholder="toi@exemple.fr" maxlength="160" autocomplete="email" required></div>
+            </div>
+            <div class="field-group"><label for="booking-message">Un petit mot ? <span class="optional">(facultatif)</span></label><textarea id="booking-message" name="message" rows="3" maxlength="1000" placeholder="L'occasion, tes envies, tes questions..."></textarea></div>
+            <button class="button button-coral submit-button" type="submit">Préparer ma demande <span aria-hidden="true">↗</span></button>
+            <p class="form-fineprint">Aucune réservation n'est validée ici. La demande est préparée dans ton navigateur, sans stockage ni envoi automatique.</p>
+          </form>
+          <div id="booking-result" class="booking-result" hidden aria-live="polite">
+            <h3>Ta demande est prête ! <span aria-hidden="true">☀</span></h3>
+            <p>Copie-la ou ouvre ta messagerie pour la transmettre à l'équipe Nissa Beer dès que l'adresse de contact sera disponible.</p>
+            <pre id="booking-preview"></pre>
+            <div class="booking-result-actions"><button id="copy-request" type="button" class="button button-dark">Copier la demande</button><a id="email-request" class="button button-outline" href="#">Ouvrir ma messagerie ↗</a></div>
+            <p id="copy-status" role="status" aria-live="polite"></p>
+            <button id="edit-request" type="button" class="edit-request">← Modifier les informations</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="questions" class="section faq-section">
+      <div class="container faq-grid">
+        <div><span class="kicker">05 / BON À SAVOIR</span><h2>DES<br><em>QUESTIONS ?</em></h2><p>Tout ce qu'il faut savoir sur le concept avant de prendre le large... sur deux roues.</p></div>
+        <div class="faq-list">
+          <details><summary>Comment fonctionne Nissa Beer ? <span>+</span></summary><p>C'est un concept de balade collective à vélo avec une ambiance apéro, des visites de Nice et des pauses conviviales. Le véhicule, la capacité et les modalités exactes seront précisés à l'ouverture.</p></details>
+          <details><summary>Peut-on se servir une bière en pédalant ? <span>+</span></summary><p>La sécurité prime : pas de consommation en mouvement. Les boissons sont servies aux arrêts autorisés, sous encadrement. Des options sans alcool sont envisagées.</p></details>
+          <details><summary>Les trois itinéraires sont-ils déjà autorisés ? <span>+</span></summary><p>Non, ce sont des propositions de découverte. Les tracés sont schématiques ; circulation du véhicule, accès aux voies et service de boissons sont à faire valider auprès des autorités compétentes.</p></details>
+          <details><summary>Faut-il avoir 18 ans ? <span>+</span></summary><p>La consommation de boissons alcoolisées est réservée aux personnes majeures. Une pièce d'identité pourra être demandée. Des alternatives sans alcool seront privilégiées pour toute personne qui ne boit pas.</p></details>
+          <details><summary>Est-ce que je réserve directement en ligne ? <span>+</span></summary><p>Pour l'instant, le formulaire prépare une demande que tu peux copier ou ouvrir dans ta messagerie. Il n'enregistre aucune donnée et ne confirme pas une réservation. L'envoi direct sera activé lorsqu'une adresse de contact officielle sera fournie.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main"><div><a class="footer-brand" href="#accueil">NISSA<span>BEER</span><b>✳</b></a><p>L'accent du Sud.<br>Le plaisir d'être ensemble.</p></div><div class="footer-links"><div><span>EXPLORER</span><a href="#concept">Le concept</a><a href="#parcours">Les parcours</a><a href="#carte">La carte</a></div><div><span>PRATIQUE</span><a href="#reservation">Préparer une sortie</a><a href="#questions">Questions fréquentes</a><a href="https://www.nice.fr/mobilite/se-deplacer/en-velo/" target="_blank" rel="noopener noreferrer">Circuler à vélo à Nice ↗</a></div></div></div>
+    <div class="container footer-bottom"><span>© <span id="year">2026</span> NISSA BEER · NICE, FRANCE · CONCEPT EN PRÉPARATION</span><span>Photo de Nice : <a href="https://unsplash.com/photos/a-beach-with-a-lot-of-people-on-it-M2u_fRfluME" target="_blank" rel="noopener noreferrer">Nick Page / Unsplash</a> · Carte © OpenStreetMap</span><a href="#accueil">EN HAUT ↑</a></div>
+    <p class="container legal-note">L'abus d'alcool est dangereux pour la santé, à consommer avec modération. Pas d'alcool pour les mineurs. Ne pas circuler sous l'emprise de l'alcool. Service de boissons et exploitation du vélo-bar soumis aux autorisations applicables.</p>
+  </footer>
+</body>
+</html>
