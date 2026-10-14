@@ -18,8 +18,8 @@
     centenaire: [43.69536, 7.26781],
     negresco: [43.69412, 7.25685],
     magnan: [43.68945, 7.24410],
-    lenval: [43.68944, 7.24165],
-    carras: [43.67530, 7.22260],
+    lenval: [43.68934, 7.24141],
+    carras: [43.68203, 7.23362],
     aeroport: [43.66790, 7.21220],
     pont: [43.663727, 7.198585],
     portLaurent: [43.65632, 7.18467],
@@ -79,6 +79,7 @@
       ]
     }
   };
+  // Public bicycle route engine; geometries follow OSM ways, not straight segments.
   const ROUTING_URL = 'https://routing.openstreetmap.de/routed-bike/route/v1/driving/';
   const routeCache = new Map();
   let routeAbort = null;
@@ -245,7 +246,9 @@
     data.stops.forEach(function (stop, index) {
       const fallbackCoordinate = PLACES[stop.place];
       const nearest = positions && positions.length ? nearestVertex(fallbackCoordinate, positions) : null;
-      const coords = nearest && nearest.offsetMeters < 900 ? nearest.coordinate : fallbackCoordinate;
+      // A milestone is only put on the drawn road when actually nearby.
+      // Otherwise we show its true location instead of misplacing it on the line.
+      const coords = nearest && nearest.offsetMeters < 100 ? nearest.coordinate : fallbackCoordinate;
       const icon = L.divIcon({
         className: 'nissa-marker',
         html: '<span class="map-pin' + (index === 0 ? ' is-start' : '') +
