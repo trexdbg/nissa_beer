@@ -10,78 +10,95 @@
     contactEmail: ''
   };
 
+  // Repères estimatifs sur le corridor cyclable du front de mer.
+  // Ne provient PAS d'un calculateur routier ni d'une levée GPS officielle.
+  // Tous les parcours sont des ALLERS-RETOURS : le tracé représente l'aller.
+  const COASTLINE = [
+    [43.69515, 7.26785],
+    [43.69508, 7.26730],
+    [43.69501, 7.26665],
+    [43.69497, 7.26570],
+    [43.69494, 7.26470],
+    [43.69493, 7.26390],
+    [43.69488, 7.26300],
+    [43.69480, 7.26190],
+    [43.69470, 7.26080],
+    [43.69458, 7.25990],
+    [43.69438, 7.25900],
+    [43.69400, 7.25790],
+    [43.69370, 7.25690],
+    [43.69325, 7.25560],
+    [43.69290, 7.25430],
+    [43.69255, 7.25300],
+    [43.69215, 7.25190],
+    [43.69165, 7.25040],
+    [43.69115, 7.24920],
+    [43.69085, 7.24810],
+    [43.69055, 7.24700],
+    [43.69024, 7.24580],
+    [43.68998, 7.24490],
+    [43.68970, 7.24370],
+    [43.68942, 7.24260],
+    [43.68905, 7.24150],
+    [43.68880, 7.24070],
+    [43.68825, 7.23950],
+    [43.68780, 7.23850],
+    [43.68725, 7.23740],
+    [43.68670, 7.23630],
+    [43.68610, 7.23550],
+    [43.68530, 7.23480],
+    [43.68440, 7.23420],
+    [43.68350, 7.23370],
+    [43.68280, 7.23330]
+  ];
+
   const ROUTES = {
     prom: {
       id: 'prom',
       title: "La Prom' Signature",
-      distance: '≈ 2,0 km',
-      duration: '45–60 min',
-      description: "Palmiers, grands hôtels et bord de mer : l'essentiel de la Promenade des Anglais.",
+      distance: '≈ 1,6 km',
+      duration: '35–50 min',
+      description: "Du Monument du Centenaire jusqu'au Négresco, via les façades Belle Époque. Même trajet au retour.",
+      accessNote: "Départ et point de retournement à valider sur place. Pas de demi-tour sur une piste encombrée.",
       color: '#ee7053',
-      path: [
-        [43.6949, 7.2750],
-        [43.6955, 7.2722],
-        [43.6959, 7.2689],
-        [43.6958, 7.2657],
-        [43.6954, 7.2624],
-        [43.6948, 7.2598],
-        [43.6940, 7.2567],
-        [43.6931, 7.2510]
-      ],
+      path: COASTLINE.slice(0, 12),
       stops: [
-        { name: 'Quai des États-Unis', coords: [43.6949, 7.2750] },
-        { name: 'Jardin Albert 1er', coords: [43.6959, 7.2689] },
-        { name: 'Palais de la Méditerranée', coords: [43.6954, 7.2624] },
-        { name: 'Hôtel Negresco', coords: [43.6940, 7.2567] },
-        { name: 'Plage du Voilier', coords: [43.6931, 7.2510] }
+        { name: 'Monument du Centenaire · départ proposé', coords: COASTLINE[0] },
+        { name: 'Palais de la Méditerranée · vue depuis la Prom’', coords: COASTLINE[6] },
+        { name: 'Hôtel Le Négresco · retour à confirmer', coords: COASTLINE[11] }
       ]
     },
     sunset: {
       id: 'sunset',
-      title: 'Sunset sur la Baie',
-      distance: '≈ 1,9 km',
-      duration: '50–70 min',
-      description: "Vers l'ouest de la Baie des Anges : panorama ouvert et couchers de soleil.",
+      title: 'Sunset vers Lenval',
+      distance: '≈ 2,9 km',
+      duration: '45–65 min',
+      description: "Du Négresco vers les plages du Voilier et Florida, Magnan, puis Lenval. Retour par le même front de mer.",
+      accessNote: "Parcours à privilégier hors affluence ; point de retournement à Lenval à confirmer.",
       color: '#299eae',
-      path: [
-        [43.6931, 7.2510],
-        [43.6922, 7.2489],
-        [43.6910, 7.2467],
-        [43.6895, 7.2440],
-        [43.6880, 7.2409],
-        [43.6868, 7.2377],
-        [43.6848, 7.2344],
-        [43.6832, 7.2317]
-      ],
+      path: COASTLINE.slice(11, 26),
       stops: [
-        { name: 'Plage du Voilier', coords: [43.6931, 7.2510] },
-        { name: 'Plage Florida', coords: [43.6910, 7.2467] },
-        { name: 'Magnan', coords: [43.6895, 7.2440] },
-        { name: 'Hôpital Lenval (front de mer)', coords: [43.6868, 7.2377] },
-        { name: 'Plage Carras', coords: [43.6832, 7.2317] }
+        { name: 'Le Négresco · départ proposé', coords: COASTLINE[11] },
+        { name: 'Plage du Voilier · vue sur la baie', coords: COASTLINE[14] },
+        { name: 'Secteur Florida et Magnan', coords: COASTLINE[22] },
+        { name: 'Lenval · retour à confirmer', coords: COASTLINE[25] }
       ]
     },
     'vieux-nice': {
       id: 'vieux-nice',
-      title: 'Nice Carte Postale',
-      distance: '≈ 1,1 km',
-      duration: '40–60 min',
-      description: "Du jardin Albert 1er au quai des États-Unis, jusqu'au point de vue de Rauba Capèu.",
+      title: 'La Baie Grand Angle',
+      distance: '≈ 6,5 km',
+      duration: '75–110 min',
+      description: "La grande balade littorale du Centenaire à Carras, via Négresco, Magnan et Lenval. Retour sur le même axe.",
+      accessNote: "Sortie longue, sections très fréquentées : repérage préalable et point de retournement à Carras indispensables.",
       color: '#d39d1f',
-      path: [
-        [43.6959, 7.2689],
-        [43.6957, 7.2708],
-        [43.6952, 7.2730],
-        [43.6945, 7.2756],
-        [43.6935, 7.2771],
-        [43.6923, 7.2785],
-        [43.6909, 7.2804]
-      ],
+      path: COASTLINE.slice(),
       stops: [
-        { name: 'Jardin Albert 1er', coords: [43.6959, 7.2689] },
-        { name: 'Quai des États-Unis', coords: [43.6945, 7.2756] },
-        { name: 'Vieux-Nice (visite à pied à proximité)', coords: [43.6935, 7.2771] },
-        { name: 'Rauba Capèu — point de vue', coords: [43.6909, 7.2804] }
+        { name: 'Monument du Centenaire · départ proposé', coords: COASTLINE[0] },
+        { name: 'Hôtel Le Négresco', coords: COASTLINE[11] },
+        { name: 'Secteur Magnan', coords: COASTLINE[22] },
+        { name: 'Lenval · vue sur les plages', coords: COASTLINE[25] },
+        { name: 'Plage de Carras · retour à confirmer', coords: COASTLINE[35] }
       ]
     }
   };
@@ -172,6 +189,7 @@
     markers.forEach(function (marker) { map.removeLayer(marker); });
     markers = [];
 
+    // Visualisation de l'aller uniquement : le retour se fait sur la même portion.
     routeLine = L.polyline(data.path, {
       color: data.color,
       weight: 6,
@@ -183,7 +201,7 @@
     data.stops.forEach(function (stop, index) {
       const icon = L.divIcon({
         className: 'nissa-marker',
-        html: '<span class="map-pin' + (index === 0 ? ' is-start' : '') + '">' + (index + 1) + '</span>',
+        html: '<span class="map-pin' + (index === 0 ? ' is-start' : '') + (index === data.stops.length - 1 ? ' is-end' : '') + '">' + (index === data.stops.length - 1 ? '↶' : index + 1) + '</span>',
         iconSize: [34, 34],
         iconAnchor: [17, 17]
       });
@@ -219,7 +237,8 @@
     selectedRoute = id;
     const data = ROUTES[id];
     $('#selected-title').textContent = data.title;
-    $('#selected-description').textContent = data.description + ' Durée indicative : ' + data.duration + '.';
+    $('#selected-description').textContent = data.description + ' Durée avec pauses : ' + data.duration + '.';
+    $('#selected-access').textContent = data.accessNote;
     $('#selected-distance').textContent = data.distance.toUpperCase();
     $('#share-status').textContent = '';
     renderStops(data);
@@ -269,6 +288,21 @@
       } catch (_) { /* Fallback for browsers denying Clipboard API. */ }
     }
     fallbackCopy(value);
+  }
+
+  // Expose la mesure géodésique approximative pour contrôler les annonces du site.
+  function routeLengthKm(path) {
+    const radiusKm = 6371;
+    let total = 0;
+    for (let i = 1; i < path.length; i += 1) {
+      const previous = path[i - 1], next = path[i], rad = Math.PI / 180;
+      const lat = (next[0] - previous[0]) * rad;
+      const lon = (next[1] - previous[1]) * rad;
+      const a = Math.sin(lat / 2) ** 2
+        + Math.cos(previous[0] * rad) * Math.cos(next[0] * rad) * Math.sin(lon / 2) ** 2;
+      total += 2 * radiusKm * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+    return total * 2; // aller + retour
   }
 
   function setupRouteButtons() {
@@ -373,6 +407,12 @@
     setupRequestForm();
 
     const routeInUrl = new URLSearchParams(window.location.search).get('parcours');
+    Object.values(ROUTES).forEach(function (route) {
+      const announced = Number(route.distance.replace(/[^\d,]/g, '').replace(',', '.'));
+      if (Math.abs(routeLengthKm(route.path) - announced) > 0.16) {
+        console.warn('Distance indicative à vérifier : ' + route.title);
+      }
+    });
     selectRoute(Object.prototype.hasOwnProperty.call(ROUTES, routeInUrl) ? routeInUrl : 'prom', false);
 
     // Leaflet needs to re-measure after its container changes width.
