@@ -7,7 +7,7 @@ Site vitrine statique du concept **Nissa Beer**, un vélo-bar collectif imaginé
 ## Contenu
 
 - Page d'accueil responsive avec présentation du concept et illustration originale en SVG.
-- Trois itinéraires **aller-retour** sur la Promenade des Anglais, avec étapes touristiques repérées, temps de visite et distances approximatives recalculées d'après les repères GPS.
+- Trois itinéraires vélo aller-retour de plus de 3 km, de la Promenade des Anglais à l'hippodrome de Cagnes-sur-Mer ; distances recalculées par le moteur vélo lorsque celui-ci est disponible.
 - Carte interactive Leaflet + OpenStreetMap : sélection des trois tracés, marqueurs, recentrage et partage par URL.
 - Formulaire pour **préparer une demande**, sans serveur et sans conservation des données.
 - FAQ, mentions de prévention et crédits de la photographie.
@@ -44,36 +44,46 @@ Les parcours (noms, points GPS, étapes, textes, couleurs) sont regroupés dans 
 - ?parcours=sunset
 - ?parcours=baie (l'ancien lien ?parcours=vieux-nice redirige vers cette nouvelle balade)
 
-### Itinéraires révisés (octobre 2026)
+### Parcours littoraux révisés (octobre 2026)
 
-Toutes les distances sont données pour **l'aller et le retour sur la même portion**. Les tracés montrés sur la carte ne représentent que **l'aller**, donc ne forment pas une boucle géographique complète.
+**Tous les circuits font plus de 3 km**, aller-retour compris. La carte ne dessine plus de segments « à vol d'oiseau » dans l'eau.
 
-| Parcours | Aller proposé | Aller-retour estimé | Durée avec arrêts |
+| Parcours | Étapes principales | Estimation AR avant calcul | Temps indicatif avec pauses |
 | --- | --- | ---: | ---: |
-| La Prom' Signature | Monument du Centenaire → Palais de la Méditerranée → Hôtel Negresco | ≈ 1,6 km | 35–50 min |
-| Sunset vers Lenval | Hôtel Negresco → Voilier → Magnan → Lenval | ≈ 2,9 km | 45–65 min |
-| La Baie Grand Angle | Monument du Centenaire → Negresco → Magnan → Lenval → plage de Carras | ≈ 6,5 km | 75–110 min |
+| La Prom' Signature | Centenaire → Négresco → Magnan → Lenval → retour | 5–6 km | 60–85 min |
+| De la Prom' à l'aéroport | Centenaire → Magnan → Lenval → Carras → secteur aéroport → retour | 12–16 km | 1 h 45 à 2 h 30 |
+| Cap sur l'hippodrome | Centenaire → Lenval → aéroport → pont Napoléon III → port de Saint-Laurent → Cros-de-Cagnes → hippodrome → retour | 25–32 km | 3 h 30 à 5 h |
 
-La carte utilise des repères géographiques relevés à partir des coordonnées des sites et du littoral, **pas** les points géométriques exacts d'un cheminement calculé par Geovelo/OSM. Les distances affichées sont des estimations géodésiques (somme des segments à vol d'oiseau rapprochés × 2) et peuvent sous-estimer le trajet réellement praticable.
+Ces fourchettes sont des **estimations préalables**, pas des distances mesurées. Lorsque le calcul d'itinéraire fonctionne, la page affiche une **distance effective recalculée** à partir de l'itinéraire aller ET retour proposé sur le réseau vélo OSM ; des sens uniques peuvent rendre les deux sens différents.
 
-**À ne pas interpréter comme des voies autorisées pour le vélo-bar** : la géométrie et le statut juridique d'un pédalo-bar sur roues, les largeurs, priorités de passage, intersections, accès des véhicules hors gabarit, zones d'arrêt et manœuvres de demi-tour restent à expertiser avec les autorités locales. Aucune halte apéro ne doit empiéter sur une piste cyclable ou sur un espace interdit.
+#### Carte et routage
 
-### Sources et retours terrain consultés
+- Leaflet avec trois fonds : **Esri World Topo** (plan plus lisible, par défaut), **CyclOSM** (aménagements pour cyclistes) et **OpenStreetMap**.
+- Au clic sur un circuit, appel HTTP (depuis le navigateur) à `routing.openstreetmap.de/routed-bike/route/v1/driving` (moteur OSRM, **profil cycliste**).
+- Le calcul emprunte des points de passage et les routes/piétonniers autorisés d'après les données OSM ; les jalons affichés sont projetés sur la polyligne routée lorsqu'ils sont proches.
+- Les trajets calculés sont mis en cache pendant la session de la page.
+- Si le service de routage ne répond pas, les points d'intérêt restent visibles **sans fausse polyligne**. Un lien permet de regarder les lieux sur OSM.
+- Les anciennes URL de parcours (`?parcours=vieux-nice`) restent compatibles et affichent la nouvelle grande balade (`?parcours=baie`).
 
-- [Ville de Nice : En vélo — itinéraires patrimoniaux](https://www.nice.fr/mobilite/se-deplacer/en-velo/) et [Plan Vélo](https://www.nice.fr/plan-velo/) : front de mer cyclable et fréquentation importante de la Promenade.
-- [Ville de Nice : restrictions de circulation](https://www.nice.fr/restrictions-importantes-de-circulation/) : voies cyclables parfois fermées pendant des événements.
-- [Tribunal administratif de Nice (2024)](https://nice.tribunal-administratif.fr/decisions-de-justice/dernieres-decisions/annulation-du-sens-unique-sur-l-axe-de-circulation-reliant-la-promenade-des-anglais-au-port-lympia) : changements réglementaires à l'est de la Promenade.
-- [Forum r/nicefrance — quai des États-Unis (novembre 2025)](https://www.reddit.com/r/nicefrance/comments/1p6hec3/) : plusieurs usagers rapportent des conflits piétons/vélos. Cet axe a donc été retiré des balades vélo-bar proposées.
-- [Forum r/nicefrance — conseils vélo (février 2026)](https://www.reddit.com/r/nicefrance/comments/1qxiw2m/) : le front de mer est cité comme l'option plane, plus adaptée aux sorties faciles que les voies vers les collines.
-- Repères GPS contrôlés sur [Mapcarta / OpenStreetMap (Monument du Centenaire)](https://mapcarta.com/fr/W572928734), [Palais de la Méditerranée](https://mapcarta.com/fr/30699624), [Le Negresco](https://mapcarta.com/fr/25319046), [Lenval](https://mapcarta.com/fr/27637266) et [Plage Carras](https://mapcarta.com/fr/W487779939).
+#### Limites impératives
 
-Pour un itinéraire **prêt à suivre** en vélo classique, passer par le calculateur [Geovelo](https://geovelo.app/) et inspecter la circulation sur place. Une validation spécifique sera nécessaire avant tout usage par Nissa Beer.
+**Ces itinéraires sont conçus pour la découverte à vélo classique.** Le moteur vélo peut suggérer des pistes étroites, voies piétons/vélos, passages à sens contraint, et des sections inadaptées voire interdites à un véhicule collectif lourd et large. Le parcours long **jusqu'à Cagnes-sur-Mer** est un exemple touristique, pas un engagement de service de vélo-bar. Il faut un repérage sur place et une validation juridique/technique avec les municipalités concernées, notamment concernant le pont, l'aéroport, le demi-tour, la largeur, l'exploitation commerciale, le nombre de passagers et les pauses apéritives.
 
-Les lignes sur la carte visualisent un axe touristique indicatif : elles **ne constituent ni un calcul d'itinéraire GPS utilisable tel quel, ni une confirmation que le passage est autorisé à un véhicule spécifique**.
+**Routage public : prototype uniquement.** Le service public FOSSGIS impose notamment au plus une requête par seconde, une attribution correcte, une absence d'usage lourd et est destiné à un usage léger/non-commercial. Pour une activité commerciale publique, utiliser un moteur hébergé par Nissa Beer ou un prestataire avec licence/SLA adapté ; ne pas s'appuyer durablement sur la disponibilité de ce serveur de démonstration. Source : [FOSSGIS — routage et politique d'usage](https://routing.openstreetmap.de/about.html).
+
+#### Références géographiques / retours terrain
+
+- [La Méditerranée à Vélo (EuroVelo 8), étape Cannes–Nice](https://www.lamediterraneeavelo.com/itineraire/cannes-nice), qui emprunte la baie, le pont et le littoral cagnois.
+- [AF3V — Description détaillée de la Littorale / EuroVelo 8](https://www.af3v.org/les-voies-vertes/voies/289-ev8-la-mediterranee-a-velo-de-cannes-a-nice/).
+- [Ville de Cagnes-sur-Mer — Le vélo](https://ville.cagnes.fr/circulation/le-velo/) : promenade de l'Hippodrome et promenade de la Plage sur l'EuroVelo 8, piste à 10 km/h et forte fréquentation.
+- [Ville de Nice — Se déplacer à vélo](https://www.nice.fr/mobilite/se-deplacer/en-velo/).
+- [Forum r/nicefrance — cohabitation piétons / vélos](https://www.reddit.com/r/nicefrance/comments/1p6hec3/) : retours d'usagers utiles au repérage.
+- [Mapcarta / OpenStreetMap — Monument du Centenaire](https://mapcarta.com/fr/W572928734), [Lenval](https://mapcarta.com/fr/W140260289), [port Saint-Laurent-du-Var](https://mapcarta.com/fr/34548550) et [hippodrome Côte d'Azur](https://mapcarta.com/fr/W524648113).
+- [Hydroportail — Pont Napoléon III](https://www.reperesdecrues.developpement-durable.gouv.fr/site/pont-napoleon-iii) : position de la traversée.
 
 ## Technologie
 
-HTML5, CSS3, JavaScript sans framework, [Leaflet 1.9.4](https://leafletjs.com/), tuiles © [OpenStreetMap](https://www.openstreetmap.org/copyright) et photographie de [Nick Page sur Unsplash](https://unsplash.com/photos/a-beach-with-a-lot-of-people-on-it-M2u_fRfluME). La carte et les polices nécessitent une connexion internet ; le reste du site reste consultable sans ces ressources.
+HTML5, CSS3, JavaScript sans framework, [Leaflet 1.9.4](https://leafletjs.com/), tuiles Esri World Topo / CyclOSM / © [OpenStreetMap](https://www.openstreetmap.org/copyright) et serveur OSRM vélo à usage de prototype et photographie de [Nick Page sur Unsplash](https://unsplash.com/photos/a-beach-with-a-lot-of-people-on-it-M2u_fRfluME). La carte et les polices nécessitent une connexion internet ; le reste du site reste consultable sans ces ressources.
 
 ## Important avant exploitation commerciale
 
