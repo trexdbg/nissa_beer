@@ -38,7 +38,7 @@ Remplacer cet exemple par une **véritable** adresse Nissa Beer. Ne pas publier 
 
 ## Personnalisation des itinéraires
 
-Les parcours (noms, points GPS, étapes, textes, couleurs) sont regroupés dans l'objet ROUTES de app.js. La sélection est accessible via :
+Les parcours (noms, étapes et couleurs) sont regroupés dans l'objet ROUTES de app.js, tandis que les coordonnées des lieux sont dans PLACES. Les positions de Carras et Lenval ont été rapprochées des références OpenStreetMap le 14 octobre 2026. La sélection est accessible via :
 
 - ?parcours=prom
 - ?parcours=sunset
@@ -78,6 +78,8 @@ Ces fourchettes sont des **estimations préalables**, pas des distances mesurée
 - [Ville de Cagnes-sur-Mer — Le vélo](https://ville.cagnes.fr/circulation/le-velo/) : promenade de l'Hippodrome et promenade de la Plage sur l'EuroVelo 8, piste à 10 km/h et forte fréquentation.
 - [Ville de Nice — Se déplacer à vélo](https://www.nice.fr/mobilite/se-deplacer/en-velo/).
 - [Forum r/nicefrance — cohabitation piétons / vélos](https://www.reddit.com/r/nicefrance/comments/1p6hec3/) : retours d'usagers utiles au repérage.
+- [Mapcarta / OpenStreetMap — plage de Carras](https://mapcarta.com/fr/W487779939) : 43.68203, 7.23362, point rectifié après comparaison avec l'ancien repère erroné. [Hôpital Lenval](https://mapcarta.com/fr/27637266) : 43.68934, 7.24141.
+- [Département 06 — Nice, La Littorale](https://velo.departement06.fr/sites/velo_/files/media/downloads/dpt06-tourisme-am-velo_ev8_nice_littorale_0.pdf) : confirmation de la continuité touristique jusqu'à l'hippodrome via le pont Napoléon III.
 - [Mapcarta / OpenStreetMap — Monument du Centenaire](https://mapcarta.com/fr/W572928734), [Lenval](https://mapcarta.com/fr/W140260289), [port Saint-Laurent-du-Var](https://mapcarta.com/fr/34548550) et [hippodrome Côte d'Azur](https://mapcarta.com/fr/W524648113).
 - [Hydroportail — Pont Napoléon III](https://www.reperesdecrues.developpement-durable.gouv.fr/site/pont-napoleon-iii) : position de la traversée.
 
