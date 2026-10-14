@@ -182,6 +182,12 @@
     }
   }
 
+  function escapeMarkup(value) {
+    return String(value).replace(/[&<>"']/g, function (char) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char];
+    });
+  }
+
   function routeCoordinates(data) {
     const outward = data.points.map(function (place) { return PLACES[place]; });
     // Vers le départ par le même corridor : OSRM calcule la direction retour,
