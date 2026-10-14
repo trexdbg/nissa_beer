@@ -10,104 +10,88 @@
     contactEmail: ''
   };
 
-  // Repères estimatifs sur le corridor cyclable du front de mer.
-  // Ne provient PAS d'un calculateur routier ni d'une levée GPS officielle.
-  // Tous les parcours sont des ALLERS-RETOURS : le tracé représente l'aller.
-  const COASTLINE = [
-    [43.69515, 7.26785],
-    [43.69508, 7.26730],
-    [43.69501, 7.26665],
-    [43.69497, 7.26570],
-    [43.69494, 7.26470],
-    [43.69493, 7.26390],
-    [43.69488, 7.26300],
-    [43.69480, 7.26190],
-    [43.69470, 7.26080],
-    [43.69458, 7.25990],
-    [43.69438, 7.25900],
-    [43.69400, 7.25790],
-    [43.69370, 7.25690],
-    [43.69325, 7.25560],
-    [43.69290, 7.25430],
-    [43.69255, 7.25300],
-    [43.69215, 7.25190],
-    [43.69165, 7.25040],
-    [43.69115, 7.24920],
-    [43.69085, 7.24810],
-    [43.69055, 7.24700],
-    [43.69024, 7.24580],
-    [43.68998, 7.24490],
-    [43.68970, 7.24370],
-    [43.68942, 7.24260],
-    [43.68905, 7.24150],
-    [43.68880, 7.24070],
-    [43.68825, 7.23950],
-    [43.68780, 7.23850],
-    [43.68725, 7.23740],
-    [43.68670, 7.23630],
-    [43.68610, 7.23550],
-    [43.68530, 7.23480],
-    [43.68440, 7.23420],
-    [43.68350, 7.23370],
-    [43.68280, 7.23330]
-  ];
+  // Points d'intérêt géolocalisés d'après OpenStreetMap / Mapcarta et points
+  // de passage routiers. Ce sont des repères, PAS une géométrie de route.
+  // La géométrie réelle provient au chargement du moteur OSRM profil vélo.
+  // Les routes comportent l'ALLER ET LE RETOUR pour tenir compte des sens uniques.
+  const PLACES = {
+    centenaire: [43.69536, 7.26781],
+    negresco: [43.69412, 7.25685],
+    magnan: [43.68945, 7.24410],
+    lenval: [43.68944, 7.24165],
+    carras: [43.67530, 7.22260],
+    aeroport: [43.66790, 7.21220],
+    pont: [43.663727, 7.198585],
+    portLaurent: [43.65632, 7.18467],
+    cros: [43.65641, 7.16418],
+    hippodrome: [43.64928, 7.14537]
+  };
 
   const ROUTES = {
     prom: {
       id: 'prom',
       title: "La Prom' Signature",
-      distance: '≈ 1,6 km',
-      duration: '35–50 min',
-      description: "Du Monument du Centenaire jusqu'au Négresco, via les façades Belle Époque. Même trajet au retour.",
-      accessNote: "Départ et point de retournement à valider sur place. Pas de demi-tour sur une piste encombrée.",
+      estimate: 'env. 5–6 km',
+      duration: '60–85 min',
+      description: "Monument du Centenaire → Le Négresco → Magnan → Lenval → retour. Une Prom' facile à repérer avec vue mer.",
+      accessNote: "Le parcours reste soumis aux règles locales et à la largeur réelle du véhicule. Retournement à étudier avec l'exploitant.",
       color: '#ee7053',
-      path: COASTLINE.slice(0, 12),
+      points: ['centenaire', 'negresco', 'magnan', 'lenval'],
       stops: [
-        { name: 'Monument du Centenaire · départ proposé', coords: COASTLINE[0] },
-        { name: 'Palais de la Méditerranée · vue depuis la Prom’', coords: COASTLINE[6] },
-        { name: 'Hôtel Le Négresco · retour à confirmer', coords: COASTLINE[11] }
+        { name: 'Monument du Centenaire · départ envisagé', place: 'centenaire' },
+        { name: 'Le Négresco · patrimoine niçois', place: 'negresco' },
+        { name: 'Magnan · quartier et plages', place: 'magnan' },
+        { name: 'Lenval · demi-tour à confirmer', place: 'lenval' }
       ]
     },
     sunset: {
       id: 'sunset',
-      title: 'Sunset vers Lenval',
-      distance: '≈ 2,9 km',
-      duration: '45–65 min',
-      description: "Du Négresco vers les plages du Voilier et Florida, Magnan, puis Lenval. Retour par le même front de mer.",
-      accessNote: "Parcours à privilégier hors affluence ; point de retournement à Lenval à confirmer.",
-      color: '#299eae',
-      path: COASTLINE.slice(11, 26),
+      title: "De la Prom' à l'aéroport",
+      estimate: 'env. 12–16 km',
+      duration: '1 h 45 – 2 h 30',
+      description: "Du Centenaire à l'ouest de la Prom' : Magnan, Lenval, Carras et le secteur de l'aéroport, puis retour.",
+      accessNote: "Les travaux, traversées et accès autour de l'aéroport sont à contrôler avant toute sortie.",
+      color: '#269caf',
+      points: ['centenaire', 'magnan', 'lenval', 'carras', 'aeroport'],
       stops: [
-        { name: 'Le Négresco · départ proposé', coords: COASTLINE[11] },
-        { name: 'Plage du Voilier · vue sur la baie', coords: COASTLINE[14] },
-        { name: 'Secteur Florida et Magnan', coords: COASTLINE[22] },
-        { name: 'Lenval · retour à confirmer', coords: COASTLINE[25] }
+        { name: 'Monument du Centenaire · départ envisagé', place: 'centenaire' },
+        { name: 'Magnan et Lenval', place: 'lenval' },
+        { name: 'Secteur de Carras', place: 'carras' },
+        { name: "Secteur aéroport · demi-tour à confirmer", place: 'aeroport' }
       ]
     },
     baie: {
       id: 'baie',
-      title: 'La Baie Grand Angle',
-      distance: '≈ 6,5 km',
-      duration: '75–110 min',
-      description: "La grande balade littorale du Centenaire à Carras, via Négresco, Magnan et Lenval. Retour sur le même axe.",
-      accessNote: "Sortie longue, sections très fréquentées : repérage préalable et point de retournement à Carras indispensables.",
+      title: "Cap sur l'hippodrome",
+      estimate: 'env. 25–32 km',
+      duration: '3 h 30 – 5 h',
+      description: "Nice → Promenade des Anglais → aéroport → pont Napoléon III → Saint-Laurent-du-Var → Cros-de-Cagnes → hippodrome. Retour vers Nice.",
+      accessNote: "Très long pour un vélo-bar collectif : parcours vélo touristique de référence, non proposé comme activité apéro sans étude spécifique. Pont, virages et zones partagées à vérifier.",
       color: '#d39d1f',
-      path: COASTLINE.slice(),
+      points: ['centenaire', 'lenval', 'carras', 'aeroport', 'pont', 'portLaurent', 'cros', 'hippodrome'],
       stops: [
-        { name: 'Monument du Centenaire · départ proposé', coords: COASTLINE[0] },
-        { name: 'Hôtel Le Négresco', coords: COASTLINE[11] },
-        { name: 'Secteur Magnan', coords: COASTLINE[22] },
-        { name: 'Lenval · vue sur les plages', coords: COASTLINE[25] },
-        { name: 'Plage de Carras · retour à confirmer', coords: COASTLINE[35] }
+        { name: 'Monument du Centenaire · départ envisagé', place: 'centenaire' },
+        { name: 'Promenade des Anglais et Lenval', place: 'lenval' },
+        { name: 'Pont Napoléon III · traversée du Var', place: 'pont' },
+        { name: 'Port de Saint-Laurent-du-Var', place: 'portLaurent' },
+        { name: 'Cros-de-Cagnes · front de mer', place: 'cros' },
+        { name: "Hippodrome Côte d'Azur · demi-tour à confirmer", place: 'hippodrome' }
       ]
     }
   };
+  const ROUTING_URL = 'https://routing.openstreetmap.de/routed-bike/route/v1/driving/';
+  const routeCache = new Map();
+  let routeAbort = null;
+  let routeSerial = 0;
 
   const $ = function (selector) { return document.querySelector(selector); };
   const $$ = function (selector) { return Array.from(document.querySelectorAll(selector)); };
   let selectedRoute = 'prom';
   let map = null;
   let routeLine = null;
+  let routeHalo = null;
+  let mapLayerControl = null;
+  let activeBase = null;
   let markers = [];
   let preparedRequest = '';
 
@@ -161,14 +145,36 @@
     try {
       map = L.map('map', { scrollWheelZoom: false, zoomControl: false, preferCanvas: true });
       L.control.zoom({ position: 'bottomright' }).addTo(map);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributeurs',
-        maxZoom: 19
-      }).addTo(map);
-      map.on('tileerror', function () {
-        // The route remains visible on the map even if one map tile fails.
-      });
-      map.setView([43.694, 7.264], 13);
+
+      // Deux fonds distincts, sans clé payante : le plan topographique est plus
+      // lisible, CyclOSM permet de visualiser les aménagements cyclables.
+      const topo = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+          attribution: 'Tiles &copy; Esri &mdash; Source: Esri, OpenStreetMap contributors',
+          maxZoom: 19
+        }
+      );
+      const cycling = L.tileLayer(
+        'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+          attribution: 'Données &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributeurs | Rendu &copy; CyclOSM',
+          subdomains: 'abc', maxZoom: 19
+        }
+      );
+      const osm = L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributeurs',
+          maxZoom: 19
+        }
+      );
+      topo.addTo(map);
+      activeBase = topo;
+      mapLayerControl = L.control.layers(
+        { 'Plan clair (Esri)': topo, 'Pistes vélo (CyclOSM)': cycling, 'OpenStreetMap': osm },
+        null,
+        { position: 'topleft', collapsed: false }
+      ).addTo(map);
+      map.on('baselayerchange', function (event) { activeBase = event.layer; });
+      map.setView([43.681, 7.226], 12);
     } catch (error) {
       console.warn('Nissa Beer : cartographie indisponible', error);
       map = null;
@@ -176,41 +182,152 @@
     }
   }
 
-  function escapeMarkup(value) {
-    return String(value).replace(/[&<>"']/g, function (char) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char];
+  function routeCoordinates(data) {
+    const outward = data.points.map(function (place) { return PLACES[place]; });
+    // Vers le départ par le même corridor : OSRM calcule la direction retour,
+    // qui peut emprunter un cheminement différent à cause des sens uniques.
+    return outward.concat(outward.slice(0, -1).reverse());
+  }
+
+  function nearestVertex(reference, positions) {
+    const target = L.latLng(reference);
+    let bestIndex = 0;
+    let bestDistance = Infinity;
+    positions.forEach(function (position, index) {
+      const distance = target.distanceTo(L.latLng(position));
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestIndex = index;
+      }
+    });
+    return { coordinate: positions[bestIndex], offsetMeters: bestDistance };
+  }
+
+  function routeStatus(message, status) {
+    const target = $('#routing-status');
+    if (!target) return;
+    target.textContent = message;
+    target.dataset.status = status;
+  }
+
+  function setDistanceLabel(data, distanceKm) {
+    const value = Number.isFinite(distanceKm)
+      ? '≈ ' + distanceKm.toLocaleString('fr-FR', { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + ' km'
+      : data.estimate;
+    $('#selected-distance').textContent = value.toUpperCase();
+    $$('[data-select-route="' + data.id + '"] small').forEach(function (label) {
+      label.textContent = 'Aller-retour · ' + value;
+    });
+    $$('[data-route-card="' + data.id + '"] .route-meta span:last-child').forEach(function (label) {
+      label.textContent = '↔ ' + value;
     });
   }
 
-  function drawSelectedRoute() {
-    if (!map || typeof window.L === 'undefined') return;
-    const data = ROUTES[selectedRoute];
-    if (routeLine) map.removeLayer(routeLine);
+  function clearRouteLayers() {
+    if (!map) return;
+    [routeLine, routeHalo].forEach(function (layer) {
+      if (layer) map.removeLayer(layer);
+    });
+    routeLine = null;
+    routeHalo = null;
     markers.forEach(function (marker) { map.removeLayer(marker); });
     markers = [];
+  }
 
-    // Visualisation de l'aller uniquement : le retour se fait sur la même portion.
-    routeLine = L.polyline(data.path, {
-      color: data.color,
-      weight: 6,
-      opacity: 0.95,
-      lineJoin: 'round',
-      lineCap: 'round'
-    }).addTo(map);
-
+  function drawStops(data, positions) {
+    if (!map) return;
     data.stops.forEach(function (stop, index) {
+      const fallbackCoordinate = PLACES[stop.place];
+      const nearest = positions && positions.length ? nearestVertex(fallbackCoordinate, positions) : null;
+      const coords = nearest && nearest.offsetMeters < 900 ? nearest.coordinate : fallbackCoordinate;
       const icon = L.divIcon({
         className: 'nissa-marker',
-        html: '<span class="map-pin' + (index === 0 ? ' is-start' : '') + (index === data.stops.length - 1 ? ' is-end' : '') + '">' + (index === data.stops.length - 1 ? '↶' : index + 1) + '</span>',
+        html: '<span class="map-pin' + (index === 0 ? ' is-start' : '') +
+          (index === data.stops.length - 1 ? ' is-end' : '') + '">' +
+          (index === data.stops.length - 1 ? '↶' : index + 1) + '</span>',
         iconSize: [34, 34],
         iconAnchor: [17, 17]
       });
-      const marker = L.marker(stop.coords, { icon: icon })
-        .addTo(map)
-        .bindPopup('<strong>Étape ' + (index + 1) + '</strong><br>' + escapeMarkup(stop.name));
-      markers.push(marker);
+      markers.push(L.marker(coords, { icon: icon }).addTo(map)
+        .bindPopup('<strong>Étape ' + (index + 1) + '</strong><br>' + escapeMarkup(stop.name)));
     });
-    map.fitBounds(routeLine.getBounds(), { padding: [55, 55], maxZoom: 15, animate: false });
+  }
+
+  function fitVisibleRoute(data) {
+    if (!map) return;
+    if (routeLine) {
+      map.fitBounds(routeLine.getBounds(), { padding: [40, 40], maxZoom: 15, animate: false });
+    } else {
+      const positions = data.points.map(function (place) { return PLACES[place]; });
+      map.fitBounds(L.latLngBounds(positions), { padding: [50, 50], maxZoom: 14, animate: false });
+    }
+  }
+
+  function showSuccessfulRoute(data, route) {
+    if (!map || typeof window.L === 'undefined') return;
+    clearRouteLayers();
+    const positions = route.geometry.coordinates.map(function (point) { return [point[1], point[0]]; });
+    routeHalo = L.polyline(positions, { color: '#fffdf8', weight: 11, opacity: .96 }).addTo(map);
+    routeLine = L.polyline(positions, {
+      color: data.color, weight: 6, opacity: .98, lineCap: 'round', lineJoin: 'round'
+    }).addTo(map);
+    drawStops(data, positions);
+    fitVisibleRoute(data);
+    const length = route.distance / 1000;
+    setDistanceLabel(data, length);
+    routeStatus('✓ Tracé calculé sur le réseau cyclable pour l’aller et le retour. Distance calculée : ' +
+      length.toLocaleString('fr-FR', { maximumFractionDigits: 1, minimumFractionDigits: 1 }) +
+      ' km. Valider les accès du véhicule sur place.', 'success');
+  }
+
+  function routingLink(data) {
+    // Lien vers la carte OSM centrée sur l'arrivée, pour garder un secours
+    // sans afficher de fausses lignes lorsque le routage n'est pas disponible.
+    const point = PLACES[data.points[data.points.length - 1]];
+    return 'https://www.openstreetmap.org/#map=14/' + point[0] + '/' + point[1];
+  }
+
+  async function drawSelectedRoute() {
+    if (!map || typeof window.L === 'undefined') return;
+    if (routeAbort) routeAbort.abort();
+    routeAbort = new AbortController();
+    const signal = routeAbort.signal;
+    const serial = ++routeSerial;
+    const data = ROUTES[selectedRoute];
+    clearRouteLayers();
+    drawStops(data, null);
+    fitVisibleRoute(data);
+    setDistanceLabel(data, null);
+    $('#route-fallback-link').href = routingLink(data);
+
+    if (routeCache.has(data.id)) {
+      showSuccessfulRoute(data, routeCache.get(data.id));
+      return;
+    }
+    routeStatus('Calcul de l’itinéraire vélo aller-retour en cours…', 'loading');
+
+    const coords = routeCoordinates(data)
+      .map(function (p) { return p[1].toFixed(6) + ',' + p[0].toFixed(6); }).join(';');
+    const url = ROUTING_URL + coords + '?overview=full&geometries=geojson&steps=false';
+
+    try {
+      const response = await fetch(url, { signal: signal, headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('Service itinéraire indisponible (' + response.status + ')');
+      const json = await response.json();
+      const route = json.routes && json.routes[0];
+      if (!route || !route.geometry || !Array.isArray(route.geometry.coordinates)
+        || route.geometry.coordinates.length < 8
+        || !Number.isFinite(route.distance) || route.distance < 3000) {
+        throw new Error('Aucun trajet vélo vérifiable de plus de 3 km retourné.');
+      }
+      if (signal.aborted || serial !== routeSerial) return;
+      routeCache.set(data.id, route);
+      showSuccessfulRoute(data, route);
+    } catch (error) {
+      if (signal.aborted || serial !== routeSerial) return;
+      console.warn('Nissa Beer : routage vélo indisponible', error);
+      routeStatus('Le tracé précis n’a pas pu être chargé. Les repères sont affichés, mais aucune ligne approximative n’est dessinée. Réessaye ou ouvre OpenStreetMap.', 'error');
+    }
   }
 
   function renderStops(data) {
@@ -239,7 +356,7 @@
     $('#selected-title').textContent = data.title;
     $('#selected-description').textContent = data.description + ' Durée avec pauses : ' + data.duration + '.';
     $('#selected-access').textContent = data.accessNote;
-    $('#selected-distance').textContent = data.distance.toUpperCase();
+    setDistanceLabel(data, routeCache.has(id) ? routeCache.get(id).distance / 1000 : null);
     $('#share-status').textContent = '';
     renderStops(data);
 
@@ -290,21 +407,6 @@
     fallbackCopy(value);
   }
 
-  // Expose la mesure géodésique approximative pour contrôler les annonces du site.
-  function routeLengthKm(path) {
-    const radiusKm = 6371;
-    let total = 0;
-    for (let i = 1; i < path.length; i += 1) {
-      const previous = path[i - 1], next = path[i], rad = Math.PI / 180;
-      const lat = (next[0] - previous[0]) * rad;
-      const lon = (next[1] - previous[1]) * rad;
-      const a = Math.sin(lat / 2) ** 2
-        + Math.cos(previous[0] * rad) * Math.cos(next[0] * rad) * Math.sin(lon / 2) ** 2;
-      total += 2 * radiusKm * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    }
-    return total * 2; // aller + retour
-  }
-
   function setupRouteButtons() {
     $$('[data-show-route]').forEach(function (button) {
       button.addEventListener('click', function () {
@@ -317,9 +419,9 @@
       });
     });
     $('#zoom-route').addEventListener('click', function () {
-      if (map && routeLine) {
+      if (map) {
         map.invalidateSize();
-        map.fitBounds(routeLine.getBounds(), { padding: [55, 55], maxZoom: 15 });
+        fitVisibleRoute(ROUTES[selectedRoute]);
       } else {
         $('#share-status').textContent = 'Carte indisponible : consulte les étapes ci-dessus.';
       }
@@ -407,12 +509,6 @@
     setupRequestForm();
 
     const routeInUrl = new URLSearchParams(window.location.search).get('parcours');
-    Object.values(ROUTES).forEach(function (route) {
-      const announced = Number(route.distance.replace(/[^\d,]/g, '').replace(',', '.'));
-      if (Math.abs(routeLengthKm(route.path) - announced) > 0.16) {
-        console.warn('Distance indicative à vérifier : ' + route.title);
-      }
-    });
     const routeKey = routeInUrl === 'vieux-nice' ? 'baie' : routeInUrl;
     selectRoute(Object.prototype.hasOwnProperty.call(ROUTES, routeKey) ? routeKey : 'prom', false);
 
