@@ -226,3 +226,17 @@ h1,h2,h3{font-family:Outfit,"DM Sans",sans-serif}
 .selected-route-details .access-note{font-size:11px;line-height:1.65;padding:11px 12px;margin:10px 0 0;border-radius:7px;border-left:3px solid var(--coral);background:#fff0e6;color:#72523d}
 .map-pin.is-end{background:var(--coral);color:var(--ink);font-size:21px}
 .map-caption a{font-weight:800;text-decoration:underline;text-underline-offset:2px}
+
+/* Cartographie : choix de fond et statut du véritable routage vélo */
+.map-canvas-wrap .leaflet-control-layers{border:1px solid #c4d7d3;border-radius:10px;box-shadow:0 5px 18px rgba(16,47,61,.15);font:700 11px/1.6 "DM Sans",sans-serif}
+.map-canvas-wrap .leaflet-control-layers-expanded{padding:10px 12px}
+.map-canvas-wrap .leaflet-control-layers label{padding:2px 0;cursor:pointer}
+.map-canvas-wrap .leaflet-top.leaflet-left{top:8px;left:8px}
+.map-canvas-wrap .leaflet-control-layers-toggle{width:39px;height:39px}
+.route-card .route-meta{gap:10px;flex-wrap:wrap}
+.selected-route-details .routing-status{margin:13px 0 8px;padding:12px;border-radius:8px;font-size:11px;line-height:1.7;background:#eef3f4;color:#315a68;font-weight:650}
+.selected-route-details .routing-status[data-status="success"]{background:#e6f4eb;color:#276d52}
+.selected-route-details .routing-status[data-status="error"]{background:#fff1e7;color:#925434;border-left:3px solid #ef835f}
+.route-fallback-link{font-size:11px;font-weight:800;display:inline-block;text-decoration:underline;text-underline-offset:3px;margin:2px 0 4px}
+.map-caption{max-width:1100px}
+@media(max-width:580px){.map-canvas-wrap .leaflet-top.leaflet-left{top:5px;left:5px}.map-canvas-wrap .leaflet-control-layers-expanded{max-width:165px}.map-overlay-label{top:14px;right:9px}}
