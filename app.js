@@ -145,7 +145,7 @@
       return;
     }
     try {
-      map = L.map('map', { scrollWheelZoom: false, zoomControl: false, preferCanvas: true });
+      map = L.map('map', { scrollWheelZoom: true, wheelPxPerZoomLevel: 80, zoomControl: false, preferCanvas: true });
       L.control.zoom({ position: 'bottomright' }).addTo(map);
 
       // Deux fonds distincts, sans clé payante : le plan topographique est plus
