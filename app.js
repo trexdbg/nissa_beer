@@ -84,8 +84,8 @@
         { name: 'Lenval · retour à confirmer', coords: COASTLINE[25] }
       ]
     },
-    'vieux-nice': {
-      id: 'vieux-nice',
+    baie: {
+      id: 'baie',
       title: 'La Baie Grand Angle',
       distance: '≈ 6,5 km',
       duration: '75–110 min',
@@ -413,7 +413,8 @@
         console.warn('Distance indicative à vérifier : ' + route.title);
       }
     });
-    selectRoute(Object.prototype.hasOwnProperty.call(ROUTES, routeInUrl) ? routeInUrl : 'prom', false);
+    const routeKey = routeInUrl === 'vieux-nice' ? 'baie' : routeInUrl;
+    selectRoute(Object.prototype.hasOwnProperty.call(ROUTES, routeKey) ? routeKey : 'prom', false);
 
     // Leaflet needs to re-measure after its container changes width.
     window.addEventListener('resize', function () {
