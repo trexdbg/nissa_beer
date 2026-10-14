@@ -89,7 +89,12 @@ h1,h2,h3{font-family:Outfit,"DM Sans",sans-serif}
 .illustration-card{background:var(--yellow);border-radius:24px;min-height:430px;display:flex;flex-direction:column;justify-content:space-between;padding:26px 30px;box-shadow:14px 14px 0 #f5e8d1;overflow:hidden}
 .illustration-top,.illustration-bottom{font-size:11px;font-weight:900;letter-spacing:2px}
 .illustration-bottom{display:flex;justify-content:space-between}
-.bike-illustration{width:100%;margin:0 auto;height:auto;max-height:340px;filter:drop-shadow(1px 4px 0 #102f3d11)}
+/* Photo éditoriale du vélo-bar : lisibilité des signatures sur tous les écrans. */
+.illustration-card.photo-card{position:relative;isolation:isolate;min-height:430px;background:#102f3d}
+.photo-card .concept-photo{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.photo-card::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(10,31,38,.65) 0%,rgba(10,31,38,.05) 27%,rgba(10,31,38,0) 58%,rgba(10,31,38,.65) 100%)}
+.photo-card .illustration-top,.photo-card .illustration-bottom{position:relative;z-index:2;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+@media(max-width:580px){.illustration-card.photo-card{min-height:330px}}
 .concept-steps{display:grid;gap:0}
 .concept-step{display:grid;grid-template-columns:47px 1fr 32px;gap:18px;padding:26px 0;border-bottom:1px solid var(--line)}
 .concept-step:first-child{padding-top:8px}
