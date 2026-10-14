@@ -300,8 +300,9 @@
   async function drawSelectedRoute() {
     if (!map || typeof window.L === 'undefined') return;
     if (routeAbort) routeAbort.abort();
-    routeAbort = new AbortController();
-    const signal = routeAbort.signal;
+    const controller = new AbortController();
+    routeAbort = controller;
+    const signal = controller.signal;
     const serial = ++routeSerial;
     const data = ROUTES[selectedRoute];
     clearRouteLayers();
@@ -320,6 +321,8 @@
       .map(function (p) { return p[1].toFixed(6) + ',' + p[0].toFixed(6); }).join(';');
     const url = ROUTING_URL + coords + '?overview=full&geometries=geojson&steps=false';
 
+    let timedOut = false;
+    let timeoutHandle = null;
     try {
       // FOSSGIS public demo: au plus une requête toutes les 1,2 secondes.
       // Une sélection annulée ne provoque aucune requête supplémentaire.
@@ -327,6 +330,7 @@
       if (waitMs > 0) await new Promise(function (resolve) { window.setTimeout(resolve, waitMs); });
       if (signal.aborted || serial !== routeSerial) return;
       lastRoutingRequestAt = Date.now();
+      timeoutHandle = window.setTimeout(function () { timedOut = true; controller.abort(); }, 15000);
       const response = await fetch(url, { signal: signal, headers: { Accept: 'application/json' } });
       if (!response.ok) throw new Error('Service itinéraire indisponible (' + response.status + ')');
       const json = await response.json();
@@ -340,9 +344,11 @@
       routeCache.set(data.id, route);
       showSuccessfulRoute(data, route);
     } catch (error) {
-      if (signal.aborted || serial !== routeSerial) return;
+      if ((signal.aborted && !timedOut) || serial !== routeSerial) return;
       console.warn('Nissa Beer : routage vélo indisponible', error);
-      routeStatus('Le tracé précis n’a pas pu être chargé. Les repères sont affichés, mais aucune ligne approximative n’est dessinée. Réessaye ou ouvre OpenStreetMap.', 'error');
+      routeStatus('Le tracé précis n’a pas pu être chargé. Les repères sont affichés, mais aucune ligne approximative n’est dessinée. Clique sur Recalculer ou ouvre OpenStreetMap.', 'error');
+    } finally {
+      if (timeoutHandle !== null) window.clearTimeout(timeoutHandle);
     }
   }
 
@@ -441,6 +447,10 @@
       } else {
         $('#share-status').textContent = 'Carte indisponible : consulte les étapes ci-dessus.';
       }
+    });
+    $('#retry-route').addEventListener('click', function () {
+      routeCache.delete(selectedRoute);
+      drawSelectedRoute();
     });
     $('#share-route').addEventListener('click', async function () {
       const shareUrl = new URL(window.location.href);
